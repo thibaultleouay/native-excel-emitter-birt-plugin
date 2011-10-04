@@ -15,9 +15,7 @@ import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.RegionUtil;
-import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
-import org.apache.poi.xssf.usermodel.XSSFColor;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.*;
 import org.eclipse.birt.report.engine.css.engine.value.FloatValue;
 import org.eclipse.birt.report.engine.css.engine.value.css.CSSConstants;
 import org.eclipse.birt.report.engine.emitter.xls.layout.ExcelContext;
@@ -110,7 +108,7 @@ public class POIWriterXLS
     public void createCell( int column, int colSpan, int rowSpan, int styleId, StyleEntry style, HyperlinkDef hyperLink, String urlAddress )
     {
         column = column - 1;
-        //System.out.println( "Row : " + currentRowNo + " -- Column : " + column + " : colSpan "+ colSpan+ " : rowSpan "+ rowSpan);
+        //System.out.println( "Row : " + currentRowNo + " -- Column : " + column + " : colSpan " + colSpan + " : rowSpan " + rowSpan );
         currentCell = currentRow.createCell( column );
         CellStyle currentCellStyle = declareStyle( currentCell, style, styleId );
         if ( currentCellStyle != null )
@@ -296,9 +294,18 @@ public class POIWriterXLS
             setFont( style, currentCellStyle );
 
             Color bgColor = (Color)style.getProperty( StyleConstant.BACKGROUND_COLOR_PROP );
+
             if ( bgColor != null )
             {
-                currentCellStyle.setFillBackgroundColor( getColorIndex( bgColor ) );
+                if ( workbook instanceof HSSFWorkbook )
+                {
+                    currentCellStyle.setFillForegroundColor( getHSSFColorIndex( bgColor ) );
+                }
+                else
+                {
+                    ( (XSSFCellStyle)currentCellStyle ).setFillForegroundColor( getColor( bgColor ) );
+                }
+                currentCellStyle.setFillPattern( CellStyle.SOLID_FOREGROUND );
             }
 
         }
@@ -355,7 +362,7 @@ public class POIWriterXLS
 
         if ( isBold )
         {
-            //  System.out.println( "isBold :" + isBold );
+            
             font.setBoldweight( Font.BOLDWEIGHT_BOLD );
         }
 
@@ -363,8 +370,15 @@ public class POIWriterXLS
 
         if ( color != null )
         {
+            if ( workbook instanceof HSSFWorkbook )
+            {
+                font.setColor( getHSSFColorIndex( color ) );
+            }
+            else
+            {
+                ( (XSSFFont)font ).setColor( getColor( color ) );
+            }
 
-            font.setColor( getColorIndex( color ) );
         }
         currentCellStyle.setFont( font );
     }
@@ -395,7 +409,15 @@ public class POIWriterXLS
         Color color = (Color)style.getProperty( StyleConstant.BORDER_RIGHT_COLOR_PROP );
         if ( color != null )
         {
-            currentCellStyle.setRightBorderColor( getColorIndex( color ) );
+            if ( workbook instanceof HSSFWorkbook )
+            {
+                currentCellStyle.setRightBorderColor( getHSSFColorIndex( color ) );
+            }
+            else
+            {
+                ( (XSSFCellStyle)currentCellStyle ).setRightBorderColor( getColor( color ) );
+            }
+
         }
     }
 
@@ -426,7 +448,15 @@ public class POIWriterXLS
         Color color = (Color)style.getProperty( StyleConstant.BORDER_LEFT_COLOR_PROP );
         if ( color != null )
         {
-            currentCellStyle.setLeftBorderColor( getColorIndex( color ) );
+            if ( workbook instanceof HSSFWorkbook )
+            {
+                currentCellStyle.setLeftBorderColor( getHSSFColorIndex( color ) );
+            }
+            else
+            {
+                ( (XSSFCellStyle)currentCellStyle ).setLeftBorderColor( getColor( color ) );
+            }
+
         }
     }
 
@@ -457,7 +487,14 @@ public class POIWriterXLS
         Color color = (Color)style.getProperty( StyleConstant.BORDER_TOP_COLOR_PROP );
         if ( color != null )
         {
-            currentCellStyle.setTopBorderColor( getColorIndex( color ) );
+            if ( workbook instanceof HSSFWorkbook )
+            {
+                currentCellStyle.setTopBorderColor( getHSSFColorIndex( color ) );
+            }
+            else
+            {
+                ( (XSSFCellStyle)currentCellStyle ).setTopBorderColor( getColor( color ) );
+            }
         }
     }
 
@@ -489,7 +526,15 @@ public class POIWriterXLS
 
         if ( color != null )
         {
-            currentCellStyle.setBottomBorderColor( getColorIndex( color ) );
+            if ( workbook instanceof HSSFWorkbook )
+            {
+                currentCellStyle.setBottomBorderColor( getHSSFColorIndex( color ) );
+            }
+            else
+            {
+                ( (XSSFCellStyle)currentCellStyle ).setBottomBorderColor( getColor( color ) );
+            }
+
         }
     }
 
@@ -542,35 +587,34 @@ public class POIWriterXLS
         }
     }
 
-    private short getColorIndex( Color color )
+    private short getHSSFColorIndex( Color color )
     {
-        if ( workbook instanceof HSSFWorkbook )
+
+        HSSFColor hssfColor = ( (HSSFWorkbook)workbook ).getCustomPalette().findSimilarColor( (byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue() );
+        if ( hssfColor != null )
         {
-            HSSFColor hssfColor = ( (HSSFWorkbook)workbook ).getCustomPalette().findSimilarColor( (byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue() );
-            if ( hssfColor != null )
-            {
-                return hssfColor.getIndex();
-            }
-            else
-            {
-                System.out.println( "Unable to find the color RBG: " + (byte)color.getRed() + "-" + (byte)color.getGreen() + "-" + (byte)color.getBlue() );
-                return HSSFColor.BLACK.index;
-            }
+            return hssfColor.getIndex();
         }
         else
         {
-            XSSFColor xssfColor = new XSSFColor( color );
-            if ( xssfColor != null )
-            {
-                return xssfColor.getIndexed();
-            }
-            else
-            {
-                System.out.println( "Unable to find the color RBG: " + (byte)color.getRed() + "-" + (byte)color.getGreen() + "-" + (byte)color.getBlue() );
-                return new XSSFColor().getIndexed();
-            }
+            System.out.println( "Unable to find the color RBG: " + (byte)color.getRed() + "-" + (byte)color.getGreen() + "-" + (byte)color.getBlue() );
+            return HSSFColor.BLACK.index;
         }
 
+    }
+
+    private XSSFColor getColor( Color color )
+    {
+        XSSFColor xssfColor = new XSSFColor( color );
+        if ( xssfColor != null )
+        {
+            return xssfColor;
+        }
+        else
+        {
+            System.out.println( "Unable to find the color RBG: " + (byte)color.getRed() + "-" + (byte)color.getGreen() + "-" + (byte)color.getBlue() );
+            return new XSSFColor();
+        }
     }
 
     private String getFirstFont( String fontName )
