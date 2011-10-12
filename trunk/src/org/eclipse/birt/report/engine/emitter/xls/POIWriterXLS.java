@@ -214,18 +214,18 @@ public class POIWriterXLS
     public void writeImage( int type, ImageData imageData, StyleEntry style, int column, int colSpan, int rowSpan )
     {
         column = column - 1;
-
+        
         ClientAnchor anchor = null;
         int index = workbook.addPicture( imageData.getImageData(), Workbook.PICTURE_TYPE_JPEG );
 
         //TODO: Need to recheck the size of the image -- might require some change
         if ( workbook instanceof HSSFWorkbook )
         {
-            anchor = new HSSFClientAnchor( 0, 0, 0, 0, (short)column, currentRowNo, (short)( column + colSpan + 1 ), currentRowNo + rowSpan );
+            anchor = new HSSFClientAnchor( 0, 0, 1023, 255, (short)column, currentRowNo, (short)( column + colSpan + 1 ), (currentRowNo + rowSpan) );
         }
         else
         {
-            anchor = new XSSFClientAnchor( 0, 0, 0, 0, column, currentRowNo, ( column + colSpan + 1 ), currentRowNo + rowSpan );
+            anchor = new XSSFClientAnchor( 0, 0, 2147483647, 2147483647, column, currentRowNo, ( column + colSpan + 1 ), (currentRowNo + rowSpan) );
         }
 
         Drawing drawing = currentSheet.createDrawingPatriarch();
