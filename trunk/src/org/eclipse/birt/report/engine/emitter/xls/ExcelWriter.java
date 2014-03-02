@@ -33,6 +33,14 @@ public class ExcelWriter implements IExcelWriter
     public void end( ) throws IOException
     {
         writer.end( );
+		if ( tempFilePath != null )
+		{
+			File file = new File( tempFilePath );
+			if ( file.exists( ) && file.isFile( ) )
+			{
+				file.delete( );
+			}
+		}
     }
 
     public void endRow( )
