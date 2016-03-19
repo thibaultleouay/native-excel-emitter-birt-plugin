@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.birt.report.engine.emitter.nativexls.feature"
       label="NativeXls"
-      version="1.0.0.qualifier"
+      version="0.0.1.qualifier"
       plugin="org.eclipse.birt.report.engine.emitter.nativexls">
 
    <description url="http://www.example.com/description">

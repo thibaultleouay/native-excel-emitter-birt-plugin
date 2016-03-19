@@ -14,10 +14,10 @@ Contributors:
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipse.birt.report.engine.emitter.nativexls</groupId>
 	<artifactId>org.eclipse.birt.report.engine.emitter.nativexls</artifactId>
-	<version>1.0.0.qualifier</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 	<parent>
-		<version>1.0.0.qualifier</version>
+		<version>0.0.1-SNAPSHOT</version>
 		<groupId>org.eclipse.birt.report.engine.emitter.nativexls</groupId>
 		<artifactId>org.eclipse.birt.report.engine.emitter.nativexls.parent</artifactId>    
     </parent>

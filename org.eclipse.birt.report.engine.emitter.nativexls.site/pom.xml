@@ -13,13 +13,13 @@ Contributors:
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<version>1.0.0.qualifier</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<artifactId>org.eclipse.birt.report.engine.emitter.nativexls.site</artifactId>
 	<packaging>eclipse-repository</packaging>
 	<name>NatixeXls Emitter Update site </name>
 
 	<parent>
-		<version>1.0.0.qualifier</version>
+		<version>0.0.1-SNAPSHOT</version>
 		<groupId>org.eclipse.birt.report.engine.emitter.nativexls</groupId>
 		<artifactId>org.eclipse.birt.report.engine.emitter.nativexls.parent</artifactId>
 	</parent>

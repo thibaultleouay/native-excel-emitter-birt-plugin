@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipse.birt.report.engine.emitter.nativexls.feature_1.0.0.201603191438.jar" id="org.eclipse.birt.report.engine.emitter.nativexls.feature" version="1.0.0.201603191438">
+   <feature url="features/org.eclipse.birt.report.engine.emitter.nativexls.feature_0.0.1.201603191825.jar" id="org.eclipse.birt.report.engine.emitter.nativexls.feature" version="0.0.1.201603191825">
       <category name="Birt Emitter"/>
    </feature>
    <category-def name="Birt Emitter" label="Birt Emitter"/>

@@ -14,20 +14,12 @@ Contributors:
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipse.birt.report.engine.emitter.nativexls</groupId>
 	<artifactId>org.eclipse.birt.report.engine.emitter.nativexls.parent</artifactId>
-	<version>1.0.0.qualifier</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
-		<tycho-version>0.22.0</tycho-version>
+		<tycho-version>0.24.0</tycho-version>
+       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>     
 	</properties>
-	<dependencies>
-
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-stax-api_1.2_spec</artifactId>
-			<version>1.0</version>
-		</dependency>
-
-	</dependencies>
 	<repositories>
 		<repository>
 			<id>eclipse-mars</id>

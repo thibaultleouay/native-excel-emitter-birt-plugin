@@ -15,7 +15,7 @@
    </plugins>
 
    <features>
-      <feature id="org.eclipse.birt.report.engine.emitter.nativexls.feature" version="1.0.0.qualifier"/>
+      <feature id="org.eclipse.birt.report.engine.emitter.nativexls.feature" version="0.0.1.qualifier"/>
    </features>
 
 
