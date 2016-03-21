@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.eclipse.birt.report.engine.emitter.nativexls.feature">
+      <category name="org.eclipse.birt.report.engine.emitter.nativexls.feature.id"/>
+   </feature>
+   <category-def name="org.eclipse.birt.report.engine.emitter.nativexls.feature.id" label="NativeXls Emitter">
+      <description>
+        Native Xls Emitter
+      </description>
+   </category-def>
+</site>

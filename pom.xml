@@ -22,8 +22,8 @@ Contributors:
 	</properties>
 	<repositories>
 		<repository>
-			<id>eclipse-mars</id>
-			<url>http://download.eclipse.org/releases/mars</url>
+			<id>eclipse-indigo</id>
+			<url>http://download.eclipse.org/releases/indigo</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
